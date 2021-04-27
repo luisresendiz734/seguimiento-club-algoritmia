@@ -56,10 +56,18 @@ const RankListsPage = () => {
 				</Tabs>
 			</Paper>
 			<TabPanel value={tab} index={0}>
-				<List list={basicos} users={hurones.filter((huron) => huron.type === 1)} />
+				{hurones ? (
+					<List list={basicos} users={hurones.filter((huron) => huron.type === 1)} />
+				) : (
+					<h4>Loading...</h4>
+				)}
 			</TabPanel>
 			<TabPanel value={tab} index={1}>
-				<List list={intermedios} users={hurones.filter((huron) => huron.type === 2)} />
+				{hurones ? (
+					<List list={intermedios} users={hurones.filter((huron) => huron.type === 2)} />
+				) : (
+					<h4>Loading...</h4>
+				)}
 			</TabPanel>
 		</div>
 	);
