@@ -12,7 +12,7 @@ const admins = [ 'luisrdevy480@gmail.com', 'soyoscarrh@gmail.com' ];
 
 const App = () => {
 	const [ user ] = useAuthState(auth);
-	const [ tab, setTab ] = useState(2);
+	const [ tab, setTab ] = useState(0);
 	console.log(user);
 	useEffect(
 		() => {
