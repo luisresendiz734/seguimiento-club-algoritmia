@@ -5,9 +5,10 @@ import { InputLabel, FormControl, Select, MenuItem, Button, Typography } from '@
 import Container from './Container';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { nanoid } from 'nanoid';
+import inter from '../data/intermedios.json';
 
 const UploadPage = () => {
-	const [ ids ] = useState(Array.from(Array(100)));
+	const [ ids ] = useState(Array.from(Array(inter.length + 10)));
 	const [ username, setUsername ] = useState('');
 	const [ problemId, setProblemId ] = useState('');
 	const [ file, setFile ] = useState(null);
