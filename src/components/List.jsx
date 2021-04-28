@@ -1,3 +1,4 @@
+import { Paper } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 
 const columns = [
@@ -35,14 +36,16 @@ export default function List({ list, users }) {
 
 	return (
 		<div style={{ width: '100%', margin: '1rem auto' }}>
-			<DataGrid
-				pageSize={30}
-				disableColumnMenu
-				hideFooterSelectedRowCount
-				autoHeight
-				rows={getRows()}
-				columns={getColumns()}
-			/>
+			<Paper>
+				<DataGrid
+					pageSize={30}
+					disableColumnMenu
+					hideFooterSelectedRowCount
+					autoHeight
+					rows={getRows()}
+					columns={getColumns()}
+				/>
+			</Paper>
 		</div>
 	);
 }
