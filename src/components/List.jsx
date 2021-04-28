@@ -34,7 +34,7 @@ export default function List({ list, users }) {
 		});
 
 	return (
-		<div style={{ width: '100%', margin: '2rem auto' }}>
+		<div style={{ width: '100%', margin: '1rem auto' }}>
 			<DataGrid
 				pageSize={30}
 				disableColumnMenu

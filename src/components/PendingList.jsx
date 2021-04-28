@@ -27,9 +27,11 @@ const PendingList = ({ user = null }) => {
 	console.log(uploads);
 	return (
 		<Container>
-			<Typography variant="h3">Pending list</Typography>
+			<Typography style={{ margin: '2rem 0' }} variant="h4">
+				Pending list
+			</Typography>
 			{uploads && uploads.length ? (
-				<section style={{ margin: '2rem 0' }}>
+				<section>
 					{uploads.map(({ username, image, problemId, id }) => (
 						<Card key={id} style={{ margin: '1rem 0' }}>
 							<CardContent>
