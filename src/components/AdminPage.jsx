@@ -1,11 +1,20 @@
 import PendingList from './PendingList';
-import { auth } from '../utils/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import SignIn from './SignIn';
+import Logout from './Logout';
 
-const AdminPage = () => {
-	const [ user ] = useAuthState(auth);
-	return <div>{user ? <PendingList admin={true} /> : <SignIn />}</div>;
+const AdminPage = ({ user }) => {
+	return (
+		<div>
+			{user ? (
+				<div>
+					<Logout />
+					<PendingList user={user} />
+				</div>
+			) : (
+				<SignIn />
+			)}
+		</div>
+	);
 };
 
 export default AdminPage;

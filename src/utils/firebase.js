@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import 'firebase/storage'
 //import { useCollectionData } from 'react-firebase-hooks/firestore';
 //import { useAuthState } from 'react-firebase-hooks/auth';
 
@@ -15,7 +16,8 @@ firebase.initializeApp({
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
+const storage = firebase.storage();
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-export { auth, firestore, googleProvider };
+export { auth, firestore, storage, googleProvider };
