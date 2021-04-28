@@ -7,7 +7,16 @@ import UploadPage from "./components/UploadPage";
 import { auth } from "./utils/firebase";
 import { useEffect } from "react";
 import MenuIcon from "@material-ui/icons/Menu";
-import { AppBar, Button, IconButton, makeStyles, Toolbar, Typography } from "@material-ui/core";
+import {
+  AppBar,
+  Button,
+  IconButton,
+  makeStyles,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
 
 const admins = ["luisrdevy480@gmail.com", "soyoscarrh@gmail.com", "marckessfm@gmail.com"];
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +37,8 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
   const [user] = useAuthState(auth);
+  const theme = useTheme();
+  const match = useMediaQuery(theme.breakpoints.up("md"));
 
   useEffect(() => {
     if (!user) return;
@@ -49,7 +60,7 @@ const App = () => {
             </IconButton>
             <Typography variant="h6" className={classes.title}>
               <Link className={classes.link} to="/">
-                Seguimiento
+                {match ? "Seguimiento Club de Algoritmia ESCOM" : "SCAE"}
               </Link>
             </Typography>
             <Button color="inherit">
