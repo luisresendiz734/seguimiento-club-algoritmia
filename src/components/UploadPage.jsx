@@ -18,8 +18,9 @@ const UploadPage = () => {
 		e.preventDefault();
 		setErrors(null);
 		const newErrors = [];
+		console.log(problemId, username, file);
 		if (username.trim().length < 3) newErrors.push('invalid username');
-		if (!problemId.trim().length) newErrors.push('invalid problem id');
+		if (!problemId.toString().trim().length) newErrors.push('invalid problem id');
 		if (!file) newErrors.push('invalid file, only images');
 		if (newErrors.length) {
 			setErrors(newErrors);
@@ -35,6 +36,9 @@ const UploadPage = () => {
 			problemId: Number(problemId),
 			username
 		});
+		setUsername('');
+		setProblemId('');
+		setFile(null);
 	};
 
 	const handleFileChange = (e) => {
