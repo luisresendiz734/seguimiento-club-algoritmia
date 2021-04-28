@@ -4,6 +4,7 @@ import PendingList from './PendingList';
 import { InputLabel, FormControl, Select, MenuItem, Button, Typography } from '@material-ui/core';
 import Container from './Container';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { nanoid } from 'nanoid';
 
 const UploadPage = () => {
 	const [ ids ] = useState(Array.from(Array(100)));
@@ -21,7 +22,6 @@ const UploadPage = () => {
 		e.preventDefault();
 		setErrors(null);
 		const newErrors = [];
-		console.log(problemId, username, file);
 		if (username.trim().length < 3) newErrors.push('invalid username');
 		if (!problemId.toString().trim().length) newErrors.push('invalid problem id');
 		if (!file) newErrors.push('invalid file, only images');
@@ -31,7 +31,7 @@ const UploadPage = () => {
 			return;
 		}
 		const storageRef = storage.ref();
-		const fileRef = storageRef.child(file.name);
+		const fileRef = storageRef.child(nanoid());
 		await fileRef.put(file);
 		const fileLink = await fileRef.getDownloadURL();
 		const uploadsRef = firestore.collection('uploads');

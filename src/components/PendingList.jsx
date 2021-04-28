@@ -28,7 +28,6 @@ const PendingList = ({ user = null }) => {
 		);
 		await uploadRef.delete();
 	};
-	console.log(uploads);
 	return (
 		<Container>
 			<Typography style={{ margin: '2rem 0' }} variant="h4">
