@@ -2,6 +2,7 @@ import { Button, Card, CardActions, CardContent, Typography } from '@material-ui
 import React from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { firestore } from '../utils/firebase';
+import Container from './Container';
 
 const PendingList = ({ user = null }) => {
 	const uploadsRef = firestore.collection('uploads');
@@ -25,45 +26,42 @@ const PendingList = ({ user = null }) => {
 	};
 	console.log(uploads);
 	return (
-		<div>
+		<Container>
 			<Typography variant="h3">Pending list</Typography>
 			{uploads && uploads.length ? (
-				<section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+				<section style={{ margin: '2rem 0' }}>
 					{uploads.map(({ username, image, problemId, id }) => (
-						<Card key={id}>
+						<Card key={id} style={{ margin: '1rem 0' }}>
 							<CardContent>
 								<Typography variant="h6">
 									user: {username}, problemId: {problemId}
 								</Typography>
 							</CardContent>
-							<CardActions>
-								{user && (
-									<React.Fragment>
-										<Button
-											href={image}
-											color="primary"
-											target="_blank"
-											rel="noopener noreferrer"
-										>
-											view image
-										</Button>
-										<Button
-											onClick={() =>
-												handleAcceptProblem(username, problemId, id)}
-											color="primary"
-										>
-											accept
-										</Button>
-									</React.Fragment>
-								)}
-							</CardActions>
+							{user && (
+								<CardActions>
+									<Button
+										href={image}
+										color="primary"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										view image
+									</Button>
+									<Button
+										onClick={() => handleAcceptProblem(username, problemId, id)}
+										color="primary"
+									>
+										accept
+									</Button>
+								</CardActions>
+							)}
 						</Card>
 					))}
 				</section>
 			) : (
-				<Typography variant="h5">Empty uploads list</Typography>
+				<Typography variant="h6">Empty</Typography>
 			)}
-		</div>
+		</Container>
 	);
 };
 

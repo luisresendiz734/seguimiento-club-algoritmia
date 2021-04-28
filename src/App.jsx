@@ -5,37 +5,64 @@ import AdminPage from './components/AdminPage';
 import RankListsPage from './components/RankListsPage';
 import UploadPage from './components/UploadPage';
 import { auth } from './utils/firebase';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Paper, Tab, Tabs } from '@material-ui/core';
 
-const admins = [ 'bAADhBkQ2rbplfrCtxJf4pQAO3B3' ];
+const admins = [ 'luisrdevy480@gmail.com', 'soyoscarrh@gmail.com' ];
 
 const App = () => {
 	const [ user ] = useAuthState(auth);
+	const [ tab, setTab ] = useState(2);
+	console.log(user);
 	useEffect(
 		() => {
 			if (!user) return;
-			if (!admins.includes(user.uid)) auth.signOut();
+			if (!admins.includes(user.email)) auth.signOut();
 		},
 		[ user ]
 	);
+	const handleTabChange = (e, t) => {
+		setTab(t);
+	};
 	return (
 		<div>
 			<CssBaseline />
 			<Router>
-				<nav>
-					<li>
-						<Link to="/">Home</Link>
-					</li>
-					<li>
-						<Link to="/ranking">Ranking</Link>
-					</li>
-					<li>
-						<Link to="/admin">Admin</Link>
-					</li>
-					<li>
-						<Link to="/upload">Upload</Link>
-					</li>
-				</nav>
+				<Paper square>
+					<Tabs
+						value={tab}
+						indicatorColor="primary"
+						textColor="primary"
+						onChange={handleTabChange}
+						variant="fullWidth"
+					>
+						<Link onClick={() => setTab(0)} style={{ textDecoration: 'none' }} to="/">
+							<Tab label="Home" />
+						</Link>
+						<Link
+							onClick={() => setTab(1)}
+							style={{ textDecoration: 'none' }}
+							to="/ranking"
+						>
+							<Tab label="Ranking" />
+						</Link>
+						<Link
+							onClick={() => setTab(2)}
+							style={{ textDecoration: 'none' }}
+							to="/upload"
+						>
+							<Tab label="Upload" />
+						</Link>
+						<Link
+							onClick={() => setTab(3)}
+							style={{ textDecoration: 'none' }}
+							to="/admin"
+						>
+							<Tab label="Admin" />
+						</Link>
+					</Tabs>
+				</Paper>
+
 				<Switch>
 					<Route exact path="/">
 						<h1>Home</h1>

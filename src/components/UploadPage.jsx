@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { storage, firestore } from '../utils/firebase';
 import PendingList from './PendingList';
 import { InputLabel, FormControl, Select, MenuItem, Button, Typography } from '@material-ui/core';
+import Container from './Container';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 const UploadPage = () => {
@@ -13,8 +14,10 @@ const UploadPage = () => {
 	const huronesRef = firestore.collection('hurones');
 	const query = huronesRef.orderBy('username', 'asc');
 	const [ hurones ] = useCollectionData(query);
+	const [ loading, setLoading ] = useState(false);
 
 	const handleUpload = async (e) => {
+		setLoading(true);
 		e.preventDefault();
 		setErrors(null);
 		const newErrors = [];
@@ -24,6 +27,7 @@ const UploadPage = () => {
 		if (!file) newErrors.push('invalid file, only images');
 		if (newErrors.length) {
 			setErrors(newErrors);
+			setLoading(false);
 			return;
 		}
 		const storageRef = storage.ref();
@@ -39,6 +43,7 @@ const UploadPage = () => {
 		setUsername('');
 		setProblemId('');
 		setFile(null);
+		setLoading(false);
 	};
 
 	const handleFileChange = (e) => {
@@ -47,8 +52,8 @@ const UploadPage = () => {
 
 	return (
 		<div>
-			<section>
-				<h1>Upload</h1>
+			<Container>
+				<Typography variant="h3">Upload</Typography>
 				<form
 					onSubmit={handleUpload}
 					style={{
@@ -60,6 +65,7 @@ const UploadPage = () => {
 					<FormControl>
 						<InputLabel id="uid">Username</InputLabel>
 						<Select
+							disabled={loading}
 							labelId="uid"
 							value={username}
 							onChange={(e) => setUsername(e.target.value)}
@@ -75,6 +81,7 @@ const UploadPage = () => {
 					<FormControl>
 						<InputLabel id="pid">Problem ID</InputLabel>
 						<Select
+							disabled={loading}
 							labelId="pid"
 							value={problemId}
 							onChange={(e) => setProblemId(e.target.value)}
@@ -87,15 +94,33 @@ const UploadPage = () => {
 						</Select>
 					</FormControl>
 					<div>
-						<input type="file" accept="image/*" onChange={handleFileChange} />
+						<input
+							type="file"
+							accept="image/*"
+							disabled={loading}
+							onChange={handleFileChange}
+							style={{ display: 'none ' }}
+							id="file-input"
+						/>
+						<label htmlFor="file-input">
+							<Button variant="contained" color="primary" component="span">
+								Select image
+							</Button>{' '}
+							{file && file.name}
+						</label>
 					</div>
-					<div>
-						<Button variant="contained" type="submit" color="primary">
-							Upload
+					<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+						<Button
+							variant="contained"
+							type="submit"
+							disabled={loading}
+							color="primary"
+						>
+							Accept
 						</Button>
 					</div>
 				</form>
-			</section>
+			</Container>
 			{errors && (
 				<section>
 					{Object.keys(errors).map((error, i) => (

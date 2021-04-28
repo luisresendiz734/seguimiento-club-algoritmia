@@ -1,10 +1,11 @@
 import PendingList from './PendingList';
 import SignIn from './SignIn';
 import Logout from './Logout';
+import Container from './Container';
 
 const AdminPage = ({ user }) => {
 	return (
-		<div>
+		<Container>
 			{user ? (
 				<div>
 					<Logout />
@@ -13,7 +14,7 @@ const AdminPage = ({ user }) => {
 			) : (
 				<SignIn />
 			)}
-		</div>
+		</Container>
 	);
 };
 
