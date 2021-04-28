@@ -11,10 +11,14 @@ const PendingList = ({ user = null }) => {
 	const [ hurones ] = useCollectionData(huronesRef, { idField: 'id' });
 	console.log(uploads);
 
-	const handleAcceptProblem = async (username, pid, uid) => {
+	const handleAcceptProblem = async (username, pid, uid, del = false) => {
 		const huron = hurones.find((h) => h.username === username);
 		const huronRef = huronesRef.doc(huron.id);
 		const uploadRef = uploadsRef.doc(uid);
+		if (del) {
+			await uploadRef.delete();
+			return;
+		}
 		huron.solved.push(pid);
 		huronRef.set(
 			{
@@ -54,6 +58,13 @@ const PendingList = ({ user = null }) => {
 										color="primary"
 									>
 										accept
+									</Button>
+									<Button
+										onClick={() =>
+											handleAcceptProblem(username, problemId, id, true)}
+										color="primary"
+									>
+										deny
 									</Button>
 								</CardActions>
 							)}

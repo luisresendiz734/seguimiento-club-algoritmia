@@ -2,15 +2,16 @@ import PendingList from './PendingList';
 import SignIn from './SignIn';
 import Logout from './Logout';
 import Container from './Container';
+import React from 'react';
 
 const AdminPage = ({ user }) => {
 	return (
 		<Container>
 			{user ? (
-				<div>
+				<React.Fragment>
 					<Logout />
 					<PendingList user={user} />
-				</div>
+				</React.Fragment>
 			) : (
 				<SignIn />
 			)}
