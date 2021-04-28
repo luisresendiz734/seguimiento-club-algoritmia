@@ -5,47 +5,70 @@ import AdminPage from "./components/AdminPage";
 import RankListsPage from "./components/RankListsPage";
 import UploadPage from "./components/UploadPage";
 import { auth } from "./utils/firebase";
-import { useEffect, useState } from "react";
-import { Paper, Tab, Tabs } from "@material-ui/core";
+import { useEffect } from "react";
+import MenuIcon from "@material-ui/icons/Menu";
+import { AppBar, Button, IconButton, makeStyles, Toolbar, Typography } from "@material-ui/core";
 
 const admins = ["luisrdevy480@gmail.com", "soyoscarrh@gmail.com", "marckessfm@gmail.com"];
-
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+  link: {
+    color: "white",
+    textDecoration: "none",
+  },
+}));
 const App = () => {
+  const classes = useStyles();
   const [user] = useAuthState(auth);
-  const [tab, setTab] = useState(0);
+
   useEffect(() => {
     if (!user) return;
     if (!admins.includes(user.email)) auth.signOut();
   }, [user]);
-  const handleTabChange = (e, t) => {
-    setTab(t);
-  };
   return (
     <div>
       <CssBaseline />
       <Router>
-        <Paper square>
-          <Tabs
-            value={tab}
-            indicatorColor="primary"
-            textColor="primary"
-            onChange={handleTabChange}
-            variant="fullWidth"
-          >
-            <Link onClick={() => setTab(0)} style={{ textDecoration: "none" }} to="/">
-              <Tab label="Home" />
-            </Link>
-            <Link onClick={() => setTab(1)} style={{ textDecoration: "none" }} to="/ranking">
-              <Tab label="Ranking" />
-            </Link>
-            <Link onClick={() => setTab(2)} style={{ textDecoration: "none" }} to="/upload">
-              <Tab label="Upload" />
-            </Link>
-            <Link onClick={() => setTab(3)} style={{ textDecoration: "none" }} to="/admin">
-              <Tab label="Admin" />
-            </Link>
-          </Tabs>
-        </Paper>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              <Link className={classes.link} to="/">
+                Seguimiento
+              </Link>
+            </Typography>
+            <Button color="inherit">
+              <Link className={classes.link} to="/ranking">
+                Ranking
+              </Link>
+            </Button>
+            <Button color="inherit">
+              <Link className={classes.link} to="/upload">
+                Upload
+              </Link>
+            </Button>
+            <Button color="inherit">
+              <Link className={classes.link} to="/admin">
+                Admin
+              </Link>
+            </Button>
+          </Toolbar>
+        </AppBar>
 
         <Switch>
           <Route exact path="/">
