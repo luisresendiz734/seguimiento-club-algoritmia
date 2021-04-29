@@ -18,7 +18,12 @@ import {
   useTheme,
 } from "@material-ui/core";
 
-const admins = ["luisrdevy480@gmail.com", "soyoscarrh@gmail.com", "marckessfm@gmail.com"];
+const admins = [
+  "luisrdevy480@gmail.com",
+  "soyoscarrh@gmail.com",
+  "marckessfm@gmail.com",
+  "danielgonznun@gmail.com",
+];
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
